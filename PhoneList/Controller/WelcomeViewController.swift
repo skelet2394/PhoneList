@@ -13,9 +13,12 @@ class WelcomeViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-//        Auth.auth().currentUser != nil ? performSegue(withIdentifier: "goToLists", sender: self) : nil
-    
+ 
     
     }
-    
+    override func viewWillAppear(_ animated: Bool) {
+        //MARK: - ENABLE/DISABLE AUTOLOGIN HERE:
+        Auth.auth().currentUser != nil ? performSegue(withIdentifier: "goToLists", sender: self) : nil
+        
+    }
 }

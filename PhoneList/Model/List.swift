@@ -11,19 +11,18 @@ import Firebase
 class List {
     
     var title: String?
-    var dateCreated: Date?
-    var dateModified: Date?
-    var uid: String?
+//    var dateCreated: Date?
+//    var dateModified: Date?
     
     
     
-    init(title: String, dateCreated: Date, dateModified: Date, uid: String) {
-        
+//    init(title: String, dateCreated: Date, dateModified: Date, uid: String) {
+    init(title: String) {
+
         self.title = title
-        self.dateModified = dateModified
-        self.dateCreated = dateCreated
-        self.uid = uid
-        
+//        self.dateModified = dateModified
+//        self.dateCreated = dateCreated
+
         
     }
     

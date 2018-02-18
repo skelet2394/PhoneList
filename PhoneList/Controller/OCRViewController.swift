@@ -14,7 +14,7 @@ class OCRViewController: UIViewController, UIImagePickerControllerDelegate, UINa
     
     let imagePicker = UIImagePickerController()
     let swiftOCR = SwiftOCR()
-
+    
     var croppingStyle = CropViewCroppingStyle.default
     var croppedRect = CGRect.zero
     var croppedAngle = 0
@@ -22,16 +22,18 @@ class OCRViewController: UIViewController, UIImagePickerControllerDelegate, UINa
     
     @IBOutlet weak var cameraButton: UIBarButtonItem!
     @IBOutlet weak var chosenImageView: UIImageView!
-    @IBOutlet weak var recognisedLabel: UILabel!
+    
+    @IBOutlet weak var recognisedTextField: UITextField!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        present(imagePicker, animated: true, completion: nil)
         
         imagePicker.delegate = self
         //      Change between camera and photo library
-        //        imagePicker.sourceType = .camera
-        imagePicker.sourceType = .camera
+        //                imagePicker.sourceType = .camera
+        imagePicker.sourceType = .photoLibrary
         imagePicker.allowsEditing = false
     }
     
@@ -47,7 +49,7 @@ class OCRViewController: UIViewController, UIImagePickerControllerDelegate, UINa
         
         cropViewController.delegate = self
         picker.dismiss(animated: true, completion: {
-        self.present(cropViewController, animated: true, completion: nil)
+            self.present(cropViewController, animated: true, completion: nil)
         })
     }
     func cropViewController(_ cropViewController: CropViewController, didCropToImage image: UIImage, withRect cropRect: CGRect, angle: Int) {
@@ -60,16 +62,16 @@ class OCRViewController: UIViewController, UIImagePickerControllerDelegate, UINa
         })
     }
     func recogniseTextOnImage(image: UIImage) {
-            swiftOCR.characterWhiteList = "1234567890"
-            swiftOCR.recognize(image) { (recognisedText) in
-                 DispatchQueue.main.async {
-                self.recognisedLabel.text = recognisedText
-                }
-                print(recognisedText)
+        swiftOCR.characterWhiteList = "1234567890"
+        swiftOCR.recognize(image) { (recognisedText) in
+            DispatchQueue.main.async {
+                self.recognisedTextField.text = recognisedText
             }
-    
+            print(recognisedText)
         }
+        
+    }
     
-
+    
     
 }

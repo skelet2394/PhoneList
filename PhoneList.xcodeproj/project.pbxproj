@@ -129,8 +129,8 @@
 			children = (
 				92A506462034BFD900DA0035 /* GoogleService-Info.plist */,
 				924D4B2D203490EC0020F3B1 /* Model */,
-				92A375B32034551700D1E6CB /* Controller */,
 				92A375B0203454B800D1E6CB /* View */,
+				92A375B32034551700D1E6CB /* Controller */,
 				92A375B2203454FF00D1E6CB /* Supporting Files */,
 			);
 			path = PhoneList;
