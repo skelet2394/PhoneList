@@ -13,12 +13,12 @@ class Phone {
     var imei = ""
     var comment = ""
     
-    init(model: String, memory: String, color: String, imei: String, comment: String) {
-        self.model = model
-        self.imei = imei
-        self.color = color
-        self.comment = comment
-        self.memory = memory
-        
-    }
+//    init(model: String, memory: String, color: String, imei: String, comment: String) {
+//        self.model = model
+//        self.imei = imei
+//        self.color = color
+//        self.comment = comment
+//        self.memory = memory
+//        
+//    }
 }

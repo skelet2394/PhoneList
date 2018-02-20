@@ -16,7 +16,7 @@ class AddItemViewController: UITableViewController, UIPickerViewDataSource, UIPi
     var fireRef: DatabaseReference!
     let userID = Auth.auth().currentUser?.uid
     
-    var modelsArray: NSArray = ["", "X", "8 Plus", "8", "7 Plus","7", "6S Plus", "6S", "6 Plus", "6", "SE", "5S"]
+    var modelsArray: NSArray = ["X", "8 Plus", "8", "7 Plus","7", "6S Plus", "6S", "6 Plus", "6", "SE", "5S"]
     var memoryArray: NSArray = ["256", "128","64", "32", "16"]
     var colorArray: NSArray = ["Space Gray", "Gold", "Rose Gold", "Silver", "Black", "Jet Black", "Red"]
     
@@ -24,6 +24,8 @@ class AddItemViewController: UITableViewController, UIPickerViewDataSource, UIPi
     var memory = ""
     var color = ""
     var comment = ""
+    
+    var currentList = ""
     
     //    @IBOutlet weak var devicePicker: UIPickerView!
     @IBOutlet weak var modelPicker: UIPickerView!
@@ -40,18 +42,21 @@ class AddItemViewController: UITableViewController, UIPickerViewDataSource, UIPi
         modelPicker.delegate = self
         modelPicker.dataSource = self
         
+        for component in [0,1,2] {
+        modelPicker.selectRow(1, inComponent: component , animated: true)
+        }
     }
     //    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     //        return
     //    }
     func addNewPhone(withUserID userID: String, imei: String, model: String, color: String, memory: String, comment: String) {
-        let key = self.fireRef.child("Phones").child(userID).childByAutoId().key
+        let key = self.fireRef.child("Lists").child(userID).child(currentList).childByAutoId().key
         let list = ["model" : model,
                     "memory" : memory,
                     "color" : color,
                     "imei" : imei,
                     "comment" : comment]
-        let childUpdates = ["/Phones/\(userID)/\(key)" : list]
+        let childUpdates = ["/Lists/\(userID)/\(currentList)/\(key)" : list]
         fireRef.updateChildValues(childUpdates)
         
     }
@@ -79,6 +84,7 @@ class AddItemViewController: UITableViewController, UIPickerViewDataSource, UIPi
         return 3
     }
     
+    
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         var pickerRows = 0
         if component == 0 {
@@ -105,8 +111,8 @@ class AddItemViewController: UITableViewController, UIPickerViewDataSource, UIPi
         }
         return rowTitle
     }
+    
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        
         if component == 0 {
             model = modelsArray[row] as! String
         }

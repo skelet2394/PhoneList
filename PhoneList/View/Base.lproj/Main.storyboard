@@ -286,6 +286,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Lists" id="ryD-DE-z3a">
+                        <barButtonItem key="leftBarButtonItem" title="Log Out" id="UYM-IV-oio">
+                            <connections>
+                                <action selector="logOutPressed:" destination="XNd-n6-xMI" id="bqG-Z7-dJi"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="5rx-0v-LAR">
                             <connections>
                                 <action selector="addButtonPressed:" destination="XNd-n6-xMI" id="8iy-FG-yAg"/>

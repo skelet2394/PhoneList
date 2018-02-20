@@ -16,7 +16,8 @@ class ListsViewController: UITableViewController {
     let userID = Auth.auth().currentUser?.uid
     
     var lists : [List] = [List]()
-    
+    var listsID = [String]()
+    var selectedList = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,14 +39,25 @@ class ListsViewController: UITableViewController {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "ListCell", for: indexPath)
         
-        cell.textLabel?.text = self.lists[indexPath.row].title
+        cell.textLabel?.text = self.lists.reversed()[indexPath.row].title
         
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         let list = lists[indexPath.row]
         performSegue(withIdentifier: "goToList", sender: list)
+    
+    }
+    
+    override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        selectedList = listsID.reversed()[indexPath.row]
+        return indexPath
+    }
+    
+    @IBAction func logOutPressed(_ sender: UIBarButtonItem) {
+        
     }
     
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
@@ -54,8 +66,8 @@ class ListsViewController: UITableViewController {
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (cancel) in    }
         let addList = UIAlertAction(title: "Add List", style: .default) { (action) in
             let listTitle = alertTextField.text
-            let listCreated = Date()
-            self.addNewList(withTitle: listTitle!, userID: self.userID!)
+            let listCreated = "\(Date())"
+            self.addNewList(withTitle: listTitle!, userID: self.userID!, dateCreated: listCreated)
             
         }
         
@@ -71,7 +83,7 @@ class ListsViewController: UITableViewController {
         present(alert, animated: true, completion: nil)
     }
     
-    func addNewList(withTitle title: String, userID: String) {
+    func addNewList(withTitle title: String, userID: String, dateCreated: String) {
         
         let key = self.fireRef.child("Lists").child(userID).childByAutoId().key
         let list = ["title" : title]
@@ -83,20 +95,31 @@ class ListsViewController: UITableViewController {
     func retrieveLists () {
         let listsDB = Database.database().reference().child("Lists").child(userID!)
         
+        
         listsDB.observeSingleEvent(of: .value, with: { (snapshot) in
-            if snapshot.childrenCount > 0 {
-                self.lists.removeAll()
+            
+            if snapshot.hasChildren() {
+                self.lists.removeAll()                
                 for lists in snapshot.children.allObjects as! [DataSnapshot] {
                     let listObject = lists.value as? [String:AnyObject]
                     let listTitle = listObject?["title"]
+                    let listID = lists.key
                     let list = List(title: listTitle as! String)
                     self.lists.append(list)
+                    self.listsID.append(listID)
                 }
                 self.tableView.reloadData()
             }
-            
         })
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
+        if segue.destination is ItemsViewController {
+            let itemsVC = segue.destination as? ItemsViewController
+            
+            itemsVC?.phonesList = selectedList
+            
+        }
         
     }
 }
