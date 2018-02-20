@@ -16,15 +16,13 @@ class AddItemViewController: UITableViewController, UIPickerViewDataSource, UIPi
     var fireRef: DatabaseReference!
     let userID = Auth.auth().currentUser?.uid
     
-    var modelsArray: NSArray = ["X", "8 Plus", "8", "7 Plus","7", "6S Plus", "6S", "6 Plus", "6", "SE", "5S"]
-    var memoryArray: NSArray = ["256", "128","64", "32", "16"]
-    var colorArray: NSArray = ["Space Gray", "Gold", "Rose Gold", "Silver", "Black", "Jet Black", "Red"]
-    
-    var model = ""
-    var memory = ""
-    var color = ""
-    var comment = ""
-    
+//    var modelsArray: NSArray = ["X", "8 Plus", "8", "7 Plus","7", "6S Plus", "6S", "6 Plus", "6", "SE", "5S"]
+//    var memoryArray: NSArray = ["256", "128","64", "32", "16"]
+//    var colorArray: NSArray = ["Space Gray", "Gold", "Rose Gold", "Silver", "Black", "Jet Black", "Red"]
+
+    var phones: [Phone] = [Phone]()
+    let phone = Phone()
+
     var currentList = ""
     
     //    @IBOutlet weak var devicePicker: UIPickerView!
@@ -38,6 +36,7 @@ class AddItemViewController: UITableViewController, UIPickerViewDataSource, UIPi
         
         fireRef = Database.database().reference()
         
+
         
         modelPicker.delegate = self
         modelPicker.dataSource = self
@@ -70,7 +69,7 @@ class AddItemViewController: UITableViewController, UIPickerViewDataSource, UIPi
         if imeiTextField.text?.count != 0 {
             let imei = imeiTextField.text
             let comment = commentTextField.text
-            addNewPhone(withUserID: userID!, imei: imei!, model: model, color: color, memory: memory, comment: comment!)
+            addNewPhone(withUserID: userID!, imei: imei!, model: phone.model, color: phone.color, memory: phone.memory, comment: comment!)
             navigationController?.popViewController(animated: true)
             dismiss(animated: true, completion: nil)
         } else {
@@ -88,39 +87,39 @@ class AddItemViewController: UITableViewController, UIPickerViewDataSource, UIPi
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         var pickerRows = 0
         if component == 0 {
-            pickerRows = modelsArray.count
+            pickerRows = phone.modelsArray.count
         }
         if component == 1 {
-            pickerRows = memoryArray.count
+            pickerRows = phone.memoryArray.count
         }
         if component == 2 {
-            pickerRows = colorArray.count
+            pickerRows = phone.colorArray.count
         }
         return pickerRows
     }
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         var rowTitle = ""
         if component == 0 {
-            rowTitle = modelsArray[row] as! String
+            rowTitle = phone.modelsArray[row]
         }
         if component == 1 {
-            rowTitle = memoryArray[row] as! String
+            rowTitle = phone.memoryArray[row]
         }
         if component == 2{
-            rowTitle = colorArray[row] as! String
+            rowTitle = phone.colorArray[row]
         }
         return rowTitle
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if component == 0 {
-            model = modelsArray[row] as! String
+            phone.model = phone.modelsArray[row]
         }
         if component == 1 {
-            memory = memoryArray[row] as! String
+            phone.memory = phone.memoryArray[row]
         }
         if component == 2{
-            color = colorArray[row] as! String
+            phone.color = phone.colorArray[row]
         }
     }
     

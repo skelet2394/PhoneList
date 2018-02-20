@@ -59,16 +59,17 @@ class ItemsViewController: UITableViewController {
                 self.phones.removeAll()
                 for phones in snapshot.children.allObjects as! [DataSnapshot] {
                     if phones.key != "title"{
-                    let phoneObject = phones.value as? [String:AnyObject]
-                    let phoneModel = phoneObject?["model"]
-                    let phoneColor = phoneObject?["color"]
-                    let phoneIMEI = phoneObject?["imei"]
-                    let phoneComment =  phoneObject?["comment"]
-                    let phoneMemory = phoneObject?["memory"]
-                    
-                    
-                    let phone = Phone(model: phoneModel as! String, memory: phoneMemory as! String, color: phoneColor as! String, imei: phoneIMEI as! String, comment: phoneComment as! String)
-                    self.phones.append(phone)
+                        let phone = Phone()
+                        let phoneObject = phones.value as? [String:AnyObject]
+                        phone.model = phoneObject?["model"] as! String
+                        phone.color = phoneObject?["color"] as! String
+                        phone.imei = phoneObject?["imei"] as! String
+                        phone.comment = phoneObject?["comment"] as! String
+                        phone.memory = phoneObject?["memory"] as! String
+                        
+                        
+                        //                    let phone = Phone(model: phoneModel as! String, memory: phoneMemory as! String, color: phoneColor as! String, imei: phoneIMEI as! String, comment: phoneComment as! String)
+                        self.phones.append(phone)
                     }
                 }
                 self.tableView.reloadData()
