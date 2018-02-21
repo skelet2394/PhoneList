@@ -10,8 +10,14 @@ import UIKit
 import SwiftOCR
 import CropViewController
 
+protocol OCRVCTextFieldDelegate {
+    func imeiTextRecognised (imei: String)
+}
+
 class OCRViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CropViewControllerDelegate {
     
+    var delegate : OCRVCTextFieldDelegate?
+
     let imagePicker = UIImagePickerController()
     let swiftOCR = SwiftOCR()
     
@@ -22,19 +28,29 @@ class OCRViewController: UIViewController, UIImagePickerControllerDelegate, UINa
     
     @IBOutlet weak var cameraButton: UIBarButtonItem!
     @IBOutlet weak var chosenImageView: UIImageView!
+    @IBOutlet weak var checkLabel: UILabel!
     
     @IBOutlet weak var recognisedTextField: UITextField!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        checkLabel.isHidden = true
         present(imagePicker, animated: true, completion: nil)
         
         imagePicker.delegate = self
         //      Change between camera and photo library
-        //                imagePicker.sourceType = .camera
-        imagePicker.sourceType = .photoLibrary
+                        imagePicker.sourceType = .camera
+//        imagePicker.sourceType = .photoLibrary
         imagePicker.allowsEditing = false
+    }
+
+
+    override func willMove(toParentViewController parent: UIViewController?) {
+        super.willMove(toParentViewController: parent)
+        if parent == nil {
+            self.delegate?.imeiTextRecognised(imei: recognisedTextField.text!)
+        }
     }
     
     @IBAction func cameraTapped(_ sender: Any) {
@@ -49,6 +65,7 @@ class OCRViewController: UIViewController, UIImagePickerControllerDelegate, UINa
         
         cropViewController.delegate = self
         picker.dismiss(animated: true, completion: {
+            self.checkLabel.isHidden = false
             self.present(cropViewController, animated: true, completion: nil)
         })
     }
@@ -67,7 +84,6 @@ class OCRViewController: UIViewController, UIImagePickerControllerDelegate, UINa
             DispatchQueue.main.async {
                 self.recognisedTextField.text = recognisedText
             }
-            print(recognisedText)
         }
         
     }

@@ -9,21 +9,18 @@
 import UIKit
 import Firebase
 
-class AddItemViewController: UITableViewController, UIPickerViewDataSource, UIPickerViewDelegate {
-    
+class AddItemViewController: UITableViewController, UIPickerViewDataSource, UIPickerViewDelegate, OCRVCTextFieldDelegate {
     
     
     var fireRef: DatabaseReference!
     let userID = Auth.auth().currentUser?.uid
     
-//    var modelsArray: NSArray = ["X", "8 Plus", "8", "7 Plus","7", "6S Plus", "6S", "6 Plus", "6", "SE", "5S"]
-//    var memoryArray: NSArray = ["256", "128","64", "32", "16"]
-//    var colorArray: NSArray = ["Space Gray", "Gold", "Rose Gold", "Silver", "Black", "Jet Black", "Red"]
 
     var phones: [Phone] = [Phone]()
     let phone = Phone()
 
     var currentList = ""
+    var imei: String?
     
     //    @IBOutlet weak var devicePicker: UIPickerView!
     @IBOutlet weak var modelPicker: UIPickerView!
@@ -37,26 +34,41 @@ class AddItemViewController: UITableViewController, UIPickerViewDataSource, UIPi
         fireRef = Database.database().reference()
         
 
-        
         modelPicker.delegate = self
         modelPicker.dataSource = self
         
         for component in [0,1,2] {
-        modelPicker.selectRow(1, inComponent: component , animated: true)
+        modelPicker.selectRow(0, inComponent: component , animated: true)
         }
     }
-    //    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    //        return
-    //    }
+    
+    
+    func configure(list currentList: String = "", imeiTF: String = "") {
+        currentList.isEmpty ? self.currentList = currentList : nil
+        imei = imeiTF
+    }
+    
+    func imeiTextRecognised(imei: String) {
+
+        imeiTextField.text = imei
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let ocrVC = segue.destination as! OCRViewController
+        ocrVC.delegate = self
+    }
+    
+    
     func addNewPhone(withUserID userID: String, imei: String, model: String, color: String, memory: String, comment: String) {
-        let key = self.fireRef.child("Lists").child(userID).child(currentList).childByAutoId().key
+        let phone = fireRef.child("Lists").child(userID).child(currentList)
         let list = ["model" : model,
                     "memory" : memory,
                     "color" : color,
                     "imei" : imei,
                     "comment" : comment]
-        let childUpdates = ["/Lists/\(userID)/\(currentList)/\(key)" : list]
-        fireRef.updateChildValues(childUpdates)
+        let key = phone.childByAutoId().key
+        let childUpdates = [key : list]
+        
+        phone.updateChildValues(childUpdates)
         
     }
     
@@ -65,10 +77,13 @@ class AddItemViewController: UITableViewController, UIPickerViewDataSource, UIPi
         
         
     }
-    @IBAction func addPhonePressed(_ sender: UIButton) {
+    @IBAction func addPhonePressed(_ sender: UIBarButtonItem) {
         if imeiTextField.text?.count != 0 {
             let imei = imeiTextField.text
             let comment = commentTextField.text
+            phone.model.isEmpty ? phone.model = phone.modelsArray.first! : nil
+            phone.memory.isEmpty ? phone.memory = phone.memoryArray.first! : nil
+            phone.color.isEmpty ? phone.color = phone.colorArray.first! : nil
             addNewPhone(withUserID: userID!, imei: imei!, model: phone.model, color: phone.color, memory: phone.memory, comment: comment!)
             navigationController?.popViewController(animated: true)
             dismiss(animated: true, completion: nil)

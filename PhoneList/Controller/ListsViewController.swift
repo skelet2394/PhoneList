@@ -16,7 +16,7 @@ class ListsViewController: UITableViewController {
     let userID = Auth.auth().currentUser?.uid
     
     var lists : [List] = [List]()
-    var listsID = [String]()
+    var listKey = [String]()
     var selectedList = ""
     
     override func viewDidLoad() {
@@ -44,6 +44,7 @@ class ListsViewController: UITableViewController {
         return cell
     }
     
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let list = lists[indexPath.row]
@@ -52,8 +53,16 @@ class ListsViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-        selectedList = listsID.reversed()[indexPath.row]
+        selectedList = listKey.reversed()[indexPath.row]
         return indexPath
+    }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        let path = fireRef.child("Lists").child(userID!).child(listKey.reversed()[indexPath.row])
+        path.removeValue { (error, reference) in
+            self.retrieveLists()
+        }
+        
     }
     
     @IBAction func logOutPressed(_ sender: UIBarButtonItem) {
@@ -85,7 +94,7 @@ class ListsViewController: UITableViewController {
     
     func addNewList(withTitle title: String, userID: String, dateCreated: String) {
         
-        let key = self.fireRef.child("Lists").child(userID).childByAutoId().key
+        let key = fireRef.child("Lists").child(userID).childByAutoId().key
         let list = ["title" : title]
         let childUpdates = ["/Lists/\(userID)/\(key)" : list]
         fireRef.updateChildValues(childUpdates)
@@ -93,31 +102,31 @@ class ListsViewController: UITableViewController {
     }
     
     func retrieveLists () {
-        let listsDB = Database.database().reference().child("Lists").child(userID!)
+        let listsDB = fireRef.child("Lists").child(userID!)
         
         
         listsDB.observeSingleEvent(of: .value, with: { (snapshot) in
-            
+            self.lists.removeAll()
             if snapshot.hasChildren() {
-                self.lists.removeAll()                
                 for lists in snapshot.children.allObjects as! [DataSnapshot] {
                     let listObject = lists.value as? [String:AnyObject]
                     let listTitle = listObject?["title"]
-                    let listID = lists.key
+                    let listKey = lists.key
                     let list = List(title: listTitle as! String)
                     self.lists.append(list)
-                    self.listsID.append(listID)
+                    self.listKey.append(listKey)
                 }
-                self.tableView.reloadData()
             }
+            self.tableView.reloadData()
         })
+
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.destination is ItemsViewController {
             let itemsVC = segue.destination as? ItemsViewController
             
-            itemsVC?.phonesList = selectedList
+            itemsVC?.currentList = selectedList
             
         }
         

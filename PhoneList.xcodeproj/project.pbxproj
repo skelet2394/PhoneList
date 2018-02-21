@@ -13,13 +13,14 @@
 		924D4B2C20347EF70020F3B1 /* AddItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 924D4B2B20347EF70020F3B1 /* AddItemViewController.swift */; };
 		924D4B2F203490FE0020F3B1 /* Phone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 924D4B2E203490FE0020F3B1 /* Phone.swift */; };
 		924D4B33203497E20020F3B1 /* List.swift in Sources */ = {isa = PBXBuildFile; fileRef = 924D4B32203497E20020F3B1 /* List.swift */; };
-		92647344203C547000DE81BF /* PhoneCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 92647343203C547000DE81BF /* PhoneCell.xib */; };
 		929FB6BA2034DB26007BB52D /* TextEnabledAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 929FB6B92034DB26007BB52D /* TextEnabledAlertController.swift */; };
 		929FB6C0203769B2007BB52D /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 929FB6BF203769B2007BB52D /* WelcomeViewController.swift */; };
 		929FB6C2203769BA007BB52D /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 929FB6C1203769BA007BB52D /* RegisterViewController.swift */; };
 		929FB6C4203769C1007BB52D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 929FB6C3203769C1007BB52D /* LoginViewController.swift */; };
 		929FB6C620377383007BB52D /* ButtonValidationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 929FB6C520377383007BB52D /* ButtonValidationHelper.swift */; };
 		92A506472034BFD900DA0035 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 92A506462034BFD900DA0035 /* GoogleService-Info.plist */; };
+		92B103E6203C7D24003B59E7 /* CustomPhoneCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B103E4203C7D24003B59E7 /* CustomPhoneCell.swift */; };
+		92B103E7203C7D24003B59E7 /* PhoneCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 92B103E5203C7D24003B59E7 /* PhoneCell.xib */; };
 		92CCEF622034739D0033D9B8 /* ListsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92CCEF612034739D0033D9B8 /* ListsViewController.swift */; };
 		92F1426A2033086600E2FCF0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F142692033086600E2FCF0 /* AppDelegate.swift */; };
 		92F1426C2033086600E2FCF0 /* OCRViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F1426B2033086600E2FCF0 /* OCRViewController.swift */; };
@@ -34,13 +35,14 @@
 		924D4B2B20347EF70020F3B1 /* AddItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddItemViewController.swift; sourceTree = "<group>"; };
 		924D4B2E203490FE0020F3B1 /* Phone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phone.swift; sourceTree = "<group>"; };
 		924D4B32203497E20020F3B1 /* List.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = List.swift; sourceTree = "<group>"; };
-		92647343203C547000DE81BF /* PhoneCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PhoneCell.xib; sourceTree = "<group>"; };
 		929FB6B92034DB26007BB52D /* TextEnabledAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEnabledAlertController.swift; sourceTree = "<group>"; };
 		929FB6BF203769B2007BB52D /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		929FB6C1203769BA007BB52D /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		929FB6C3203769C1007BB52D /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		929FB6C520377383007BB52D /* ButtonValidationHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonValidationHelper.swift; sourceTree = "<group>"; };
 		92A506462034BFD900DA0035 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		92B103E4203C7D24003B59E7 /* CustomPhoneCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPhoneCell.swift; sourceTree = "<group>"; };
+		92B103E5203C7D24003B59E7 /* PhoneCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PhoneCell.xib; sourceTree = "<group>"; };
 		92CCEF612034739D0033D9B8 /* ListsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsViewController.swift; sourceTree = "<group>"; };
 		92F142662033086600E2FCF0 /* PhoneList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhoneList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		92F142692033086600E2FCF0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -77,7 +79,7 @@
 			isa = PBXGroup;
 			children = (
 				92F1426D2033086600E2FCF0 /* Main.storyboard */,
-				92647343203C547000DE81BF /* PhoneCell.xib */,
+				92B103E3203C7CEC003B59E7 /* Custom Cell */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -107,6 +109,15 @@
 				929FB6C520377383007BB52D /* ButtonValidationHelper.swift */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		92B103E3203C7CEC003B59E7 /* Custom Cell */ = {
+			isa = PBXGroup;
+			children = (
+				92B103E4203C7D24003B59E7 /* CustomPhoneCell.swift */,
+				92B103E5203C7D24003B59E7 /* PhoneCell.xib */,
+			);
+			path = "Custom Cell";
 			sourceTree = "<group>";
 		};
 		92F1425D2033086500E2FCF0 = {
@@ -218,7 +229,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				92647344203C547000DE81BF /* PhoneCell.xib in Resources */,
+				92B103E7203C7D24003B59E7 /* PhoneCell.xib in Resources */,
 				92A506472034BFD900DA0035 /* GoogleService-Info.plist in Resources */,
 				92F142712033086600E2FCF0 /* Assets.xcassets in Resources */,
 				92F1426F2033086600E2FCF0 /* Main.storyboard in Resources */,
@@ -308,6 +319,7 @@
 				929FB6C0203769B2007BB52D /* WelcomeViewController.swift in Sources */,
 				924D4B33203497E20020F3B1 /* List.swift in Sources */,
 				924D4B2820347E3C0020F3B1 /* ItemsViewController.swift in Sources */,
+				92B103E6203C7D24003B59E7 /* CustomPhoneCell.swift in Sources */,
 				929FB6BA2034DB26007BB52D /* TextEnabledAlertController.swift in Sources */,
 				92F1426A2033086600E2FCF0 /* AppDelegate.swift in Sources */,
 				92CCEF622034739D0033D9B8 /* ListsViewController.swift in Sources */,

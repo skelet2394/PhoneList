@@ -11,7 +11,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Add Item View Controller-->
+        <!--Title-->
         <scene sceneID="8mh-kv-Py2">
             <objects>
                 <tableViewController id="vo5-SY-sKi" customClass="AddItemViewController" customModule="PhoneList" customModuleProvider="target" sceneMemberID="viewController">
@@ -20,18 +20,6 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <color key="sectionIndexBackgroundColor" red="0.77137531729999997" green="0.77137531729999997" blue="0.77137531729999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <button key="tableFooterView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Ull-ia-gsN">
-                            <rect key="frame" x="0.0" y="479.5" width="375" height="50"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" red="0.077948693750000006" green="0.70029600999999997" blue="0.73725490199999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
-                            <state key="normal" title="Add Phone">
-                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </state>
-                            <connections>
-                                <action selector="addPhonePressed:" destination="vo5-SY-sKi" eventType="touchUpInside" id="eeu-QW-E7k"/>
-                            </connections>
-                        </button>
                         <sections>
                             <tableViewSection headerTitle="Model" id="SKg-V1-d6V">
                                 <cells>
@@ -128,6 +116,13 @@
                             <outlet property="delegate" destination="vo5-SY-sKi" id="yw6-0h-wdv"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="Title" id="0YR-uk-0OQ">
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="GY8-HW-Ej0">
+                            <connections>
+                                <action selector="addPhonePressed:" destination="vo5-SY-sKi" id="zWQ-Lp-8t3"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="commentTextField" destination="cXX-eD-rXE" id="I6T-MP-eUT"/>
                         <outlet property="imeiTextField" destination="LnU-OI-rqg" id="oUl-lX-jid"/>
@@ -150,18 +145,30 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="1pe-Dd-oFM">
                                 <rect key="frame" x="0.0" y="64" width="375" height="301.5"/>
                                 <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Check recognised IMEI and correct if needed:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IHw-Tk-D0z">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="gvi-JY-1r9"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="SWi-71-Obr">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="69.5"/>
+                                        <rect key="frame" x="0.0" y="30" width="375" height="62.5"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="numberPad" returnKeyType="continue" enablesReturnKeyAutomatically="YES" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
                                     </textField>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="458-ua-xge">
-                                        <rect key="frame" x="0.0" y="69.5" width="375" height="232"/>
+                                        <rect key="frame" x="0.0" y="92.5" width="375" height="209"/>
                                     </imageView>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstItem="IHw-Tk-D0z" firstAttribute="top" secondItem="1pe-Dd-oFM" secondAttribute="top" id="MoJ-HK-zMP"/>
                                     <constraint firstItem="SWi-71-Obr" firstAttribute="height" secondItem="458-ua-xge" secondAttribute="height" multiplier="0.3" id="fZJ-ET-WFP"/>
+                                    <constraint firstItem="IHw-Tk-D0z" firstAttribute="leading" secondItem="1pe-Dd-oFM" secondAttribute="leading" id="jFf-F6-cWs"/>
+                                    <constraint firstAttribute="trailing" secondItem="IHw-Tk-D0z" secondAttribute="trailing" id="t84-Pm-4Et"/>
                                 </constraints>
                             </stackView>
                         </subviews>
@@ -183,6 +190,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="cameraButton" destination="SSh-oj-fz5" id="sqK-Uv-4ya"/>
+                        <outlet property="checkLabel" destination="IHw-Tk-D0z" id="SQp-BA-75d"/>
                         <outlet property="chosenImageView" destination="458-ua-xge" id="tAM-V4-Alh"/>
                         <outlet property="recognisedTextField" destination="SWi-71-Obr" id="Rhu-7U-L2D"/>
                     </connections>
@@ -223,6 +231,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="phonesTableView" destination="tS9-t1-68w" id="jNK-os-dTm"/>
                         <segue destination="YBx-YU-nYY" kind="show" identifier="itemDetails" id="nhn-gW-yQQ"/>
                     </connections>
                 </tableViewController>
@@ -230,7 +239,7 @@
             </objects>
             <point key="canvasLocation" x="690" y="130.98591549295776"/>
         </scene>
-        <!--Detail Item View Controller-->
+        <!--Edit Item-->
         <scene sceneID="fKh-XS-5yP">
             <objects>
                 <tableViewController id="YBx-YU-nYY" customClass="DetailItemViewController" customModule="PhoneList" customModuleProvider="target" sceneMemberID="viewController">
@@ -239,14 +248,28 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <sections>
-                            <tableViewSection id="zJx-ee-4Dt">
+                            <tableViewSection headerTitle="Comment" id="zJx-ee-4Dt">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="mt8-kz-tCm">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="64" id="mt8-kz-tCm">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="64"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="mt8-kz-tCm" id="E7C-6W-jlr">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="63.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Write comment" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="p4B-bo-flp">
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="63.5"/>
+                                                    <nil key="textColor"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="p4B-bo-flp" firstAttribute="centerX" secondItem="E7C-6W-jlr" secondAttribute="centerX" id="8f1-FA-KgE"/>
+                                                <constraint firstItem="p4B-bo-flp" firstAttribute="width" secondItem="E7C-6W-jlr" secondAttribute="width" id="Yim-0l-7na"/>
+                                                <constraint firstItem="p4B-bo-flp" firstAttribute="height" secondItem="E7C-6W-jlr" secondAttribute="height" id="kpG-Az-R5h"/>
+                                                <constraint firstItem="p4B-bo-flp" firstAttribute="centerY" secondItem="E7C-6W-jlr" secondAttribute="centerY" id="uP3-b2-Yr5"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>
@@ -257,10 +280,20 @@
                             <outlet property="delegate" destination="YBx-YU-nYY" id="wae-Ju-k1l"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="Edit Item" id="JNZ-1C-r8Z">
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="Lmz-r1-hSb">
+                            <connections>
+                                <action selector="saveButtonPressed:" destination="YBx-YU-nYY" id="OMI-h0-4Oo"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="editTextField" destination="p4B-bo-flp" id="eK4-Ec-uvC"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="r5o-vm-jET" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1470" y="130.98591549295776"/>
+            <point key="canvasLocation" x="1469.5999999999999" y="130.88455772113943"/>
         </scene>
         <!--Lists-->
         <scene sceneID="OXt-Mv-QOk">
@@ -517,6 +550,6 @@
         <image name="icoBarCode" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="K0L-BV-g9S"/>
+        <segue reference="Dsu-oQ-Cvt"/>
     </inferredMetricsTieBreakers>
 </document>
